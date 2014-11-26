@@ -1,0 +1,23 @@
+ICONV_CLOSE函数
+
+原文：
+http://www.gnu.org/software/libiconv/documentation/libiconv/iconv_close.3.html
+
+iconv_close – 释放字符集转换的描述符
+ 
+纲要
+#include <iconv.h>
+ 
+int iconv_close (iconv_t cd);
+ 
+描述
+iconv_close函数释放由iconv_open 函数申请的转换描述符cd。
+ 
+返回值
+成功，iconvctl函数返回0。出错时，它修改errno并返回(size_t)(-1)。
+ 
+遵循
+POSIX:2001
+ 
+查看相关
+iconv_open(3), iconv(3)

@@ -1,0 +1,109 @@
+#include <iostream>
+#include <string>
+#include "include/iconv.h"
+#pragma comment(lib, "libs/libiconv.lib")
+
+using std::string;
+
+/*!
+	对字符串进行语言编码转换
+	param from  原始编码，比如"GB2312",的按照iconv支持的写
+	param to    转换的目的编码
+	param save  转换后的数据保存到这个指针里，需要在外部分配内存
+	param savelen  存储转换后数据的内存大小
+	param src      原始需要转换的字符串
+	param srclen   原始字符串长度
+*/
+int convert(const char *from, const char *to, char* save, int savelen, const char *src, int srclen)
+{
+    iconv_t cd;
+    const char   *inbuf = src;
+    char *outbuf = save;
+    size_t outbufsize = savelen;
+    int status = 0;
+    size_t  savesize = 0;
+    size_t inbufsize = srclen;
+    const char* inptr = inbuf;
+    size_t      insize = inbufsize;
+    char* outptr = outbuf;
+    size_t outsize = outbufsize;
+    
+    cd = iconv_open(to, from);
+    iconv(cd,NULL,NULL,NULL,NULL);
+    if (inbufsize == 0) {
+        status = -1;
+        goto done;
+    }
+    while (insize > 0) {
+        size_t res = iconv(cd,(const char**)&inptr,&insize,&outptr,&outsize);
+        if (outptr != outbuf) {
+            int saved_errno = errno;
+            int outsize = outptr - outbuf;
+            strncpy(save+savesize, outbuf, outsize);
+            errno = saved_errno;
+        }
+        if (res == (size_t)(-1)) {
+            if (errno == EILSEQ) {
+                int one = 1;
+                iconvctl(cd,ICONV_SET_DISCARD_ILSEQ,&one);
+                status = -3;
+            } else if (errno == EINVAL) {
+                if (inbufsize == 0) {
+                    status = -4;
+                    goto done;
+                } else {
+                    break;
+                }
+            } else if (errno == E2BIG) {
+                status = -5;
+                goto done;
+            } else {
+                status = -6;
+                goto done;
+            }
+        }
+    }
+    status = strlen(save);
+done:
+    iconv_close(cd);
+    return status;
+}
+
+/*
+ *	convert(...) string封装
+ *  [in|out]put string : src_str
+ *  s[from|to]: 编码名称
+ */
+int convert_str(std::string sfrom, std::string sto, std::string &src_str)
+{
+	int ilen = src_str.length();
+	int ioutlen = ilen * 3;
+	char *outbuf = (char *)malloc(ioutlen);
+	memset(outbuf, 0, ioutlen);
+
+	int nret = convert(sfrom.c_str(), sto.c_str(), outbuf, ioutlen, src_str.c_str(), ilen);
+	if (nret < 0)
+	{
+		free(outbuf);
+		outbuf = NULL;
+		return nret;
+	}
+
+	outbuf[nret] = '\0';
+	src_str = outbuf;
+	free(outbuf);
+	outbuf = NULL;
+
+	return nret;
+}
+
+int main(int argc, char **argv)
+{
+	std::string _str = "iconv编码转换";
+	if (convert_str("GB2312", "UTF-8", _str) < 0)
+	{
+		std::cout << "convert to utf-8 failed. " << std::endl;
+		continue;
+	}
+	std::cout << _str << std::endl;
+}

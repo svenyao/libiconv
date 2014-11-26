@@ -1,0 +1,46 @@
+ICONVCTL函数
+
+原文：
+http://www.gnu.org/software/libiconv/documentation/libiconv/iconvctl.3.html
+
+iconvctl – 设置iconv的行为。
+ 
+纲要
+#include <iconv.h>
+ 
+int iconvctl (iconv_t cd , int request, void * argument);
+ 
+描述
+参数cd必须是由iconv_open函数创建的转换描述符。
+ 
+当用指定的转换描述符调用时，iconvctl根据request的值来检查或调整iconv函数的行为。
+ 
+REQUEST的值
+以下是request参数的允许值：
+ICONV_TRIVIALP
+argument类型应是int*，普通转换（conversion is trivial）为1，反之为0。
+ 
+ICONV_GET_TRANSLITERATE
+argument类型应是int*，字译功能已打开为1，反之为0。
+ 
+ICONV_SET_TRANSLITERATE
+argument类型应是const int*，指向一个int值。非0将打开字译功能，0则关闭。
+ 
+ICONV_GET_DISCARD_ILSEQ
+argument类型应是int*，“忽略无效序列并继续转换”功能已打开为1，反之为0。
+ 
+ICONV_SET_DISCARD_ILSEQ
+argument类型应是const int*，指向一个int值。非0将打开“忽略无效序列并继续转换”功能，0则关闭。
+ 
+返回值
+成功，iconvctl函数返回0。出错时，它修改errno并返回(size_t)(-1)。
+错误
+除了其它错误以外，出现以下错误：
+EINVAL
+    request的值无效。
+ 
+遵循
+本函数仅出现GUN libiconv中，其它版本未实现。不被任何标准支持。你可以通过(_LIBICONV_VERSION >= 0x0108)测试它是否存在。
+ 
+查看相关
+iconv_open(3), icon(3)

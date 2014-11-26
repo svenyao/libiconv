@@ -1,0 +1,48 @@
+ICONV函数
+
+原文：
+http://www.gnu.org/software/libiconv/documentation/libiconv/iconv.3.html
+
+iconv – 执行字符集转换
+ 
+纲要
+#include <iconv.h>
+ 
+size_t iconv (iconv_t cd,
+              const char* * inbuf, size_t * inbytesleft,
+              char* * outbuf, size_t * outbytesleft);
+ 
+描述
+参数cd必须是由iconv_open函数创建的转换描述符。
+ 
+大部分情形是inbuf 不为NULL，*inbuf也不为NULL。这种情况下，iconv函数将以*inbuf起始的多字节序列转换到以*outbuf起始的多字节序列。从*inbuf开始读取,最多*inbytesleft字节，转换后，从*outbuf开始写入,最多*outbytesleft字节。
+ 
+iconv函数一次转换一个多字节字符，每次字符转换，*inbuf增加已转换的字节数，*inbytesleft相应地减少已转换的字节数；对应地，*outbuf和*outbytesleft作相应的修改，同时修改cd的转换状态。
+ 
+以下四种情况不能完成转换：
+1．输入中含无效的多字节序列。此时，它将errno设置为EILSEQ并返回(size_t)(-1)。*inbuf指向无效序列的最左端。
+2．输入的字节序列已经全部被转换过，也就是*inbytesleft减少至0。此时，iconv返回本次调用中完成转换的数目（可逆的转换不计入）。
+3．输入中以不完整多字节序列作结尾。此时，它将errno设置为EINVAL并返回(size_t)(-1)。*inbuf指向不完整多字节序列的最左端。
+4．输出缓存区没有足够空间来存储下一个字符。此时，它将errno设置为E2BIG并返回(size_t)(-1)。
+ 
+另一种情形是inbuf 为NULL或*inbuf为NULL，但*outbuf 不为NULL，*outbuf也不为NULL。这种情况下，iconv函数试图将cd的转换状态设置为初始状态并store a corresponding shift sequence at *outbuf。从*outbuf开始，最多写入*outbytesleft字节。如果输出缓存区没有足够空间来存储这个重置后的序列，他将errno设置为E2BIG并返回(size_t)(-1)。反之，*outbuf增加写入的字节数和*outbytesleft减少写入的字节数。
+ 
+第三种情形是inbuf 为NULL或*inbuf为NULL，*outbuf 为NULL或*outbuf为NULL。这种情况下，iconv函数试图将cd的转换状态设置为初始状态。
+ 
+返回值
+iconv函数返回本次调用中转换的字符数，可逆的转换不计入。出错时，它将修改errno并返回(size_t)(-1)。
+ 
+错误
+除了其它错误以外，出现以下错误：
+E2BIG
+	*outbuf没有足够的空间。
+EILSEQ
+    输入含无效的多字节序列。
+EINVAL
+    输入含不完整多字节序列。
+
+遵循
+POSIX:2001
+ 
+查看相关
+iconv_open(3), iconvctl(3), iconv_close(3)

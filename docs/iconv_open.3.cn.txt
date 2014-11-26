@@ -1,0 +1,92 @@
+ICONV_OPEN函数
+
+原文:
+http://www.gnu.org/savannah-checkouts/gnu/libiconv/documentation/libiconv-1.13/iconv_open.3.html
+
+iconv_open –申请一个字符集转换的描述符。
+
+纲要
+#include <iconv.h>
+ 
+iconv_t iconv_open (const char* tocode, const char* fromcode);
+ 
+描述
+iconv_open函数申请一个转换描述符,转换字节序列从编码fromcode到编码tocode。
+fromcode和tocode允许的值依赖于本地系统。
+支持以下编码方式：
+l        欧洲语言
+ASCII, ISO-8859-{1,2,3,4,5,7,9,10,13,14,15,16}, KOI8-R, KOI8-U, KOI8-RU, CP{1250,1251,1252,1253,1254,1257}, CP{850,866}, Mac{Roman,CentralEurope,Iceland,Croatian,Romania}, Mac{Cyrillic,Ukraine,Greek,Turkish}, Macintosh
+l        犹太语言
+ISO-8859-{6,8}, CP{1255,1256}, CP862, Mac{Hebrew,Arabic}
+l        日语
+EUC-JP, SHIFT_JIS, CP932, ISO-2022-JP, ISO-2022-JP-2, ISO-2022-JP-1
+l        中文
+EUC-CN, HZ, GBK, CP936, GB18030, EUC-TW, BIG5, CP950, BIG5-HKSCS, BIG5-HKSCS:2001, BIG5-HKSCS:1999, ISO-2022-CN, ISO-2022-CN-EXT
+l        韩语
+EUC-KR, CP949, ISO-2022-KR, JOHAB
+l        亚美尼亚语
+ARMSCII-8
+l        亚美尼亚语
+Georgian-Academy, Georgian-PS
+l        塔吉克语
+KOI8-T
+l        哈萨克语
+PT154
+l        泰国语
+ISO-8859-11, TIS-620, CP874, MacThai
+l        老挝语
+MuleLao-1, CP1133
+l        越南语
+VISCII, TCVN, CP1258
+l        特殊平台
+HP-ROMAN8, NEXTSTEP
+l        Full Unicode
+UTF-8 
+UCS-2, UCS-2BE, UCS-2LE 
+UCS-4, UCS-4BE, UCS-4LE 
+UTF-16, UTF-16BE, UTF-16LE 
+UTF-32, UTF-32BE, UTF-32LE 
+UTF-7 
+C99, JAVA
+l        Full Unicode, 按uint16_t/uint32_t (with machine dependent endianness and alignment)
+UCS-2-INTERNAL, UCS-4-INTERNAL
+l        Locale dependent, 按char/wchar_t (with machine dependent endianness and alignment, and with OS and the current LC_CTYPE locale facet)
+char, wchar_t
+ 
+如果配置了选项--enable-extra-encodings，还支持部分其它编码方式：
+l        欧洲语言
+CP{437,737,775,852,853,855,857,858,860,861,863,865,869,1125}
+l        犹太语言
+CP864
+l        日语
+EUC-JISX0213, Shift_JISX0213, ISO-2022-JP-3
+l        中文
+BIG5-2003 (experimental)
+l        土库曼语
+TDS565
+l        特殊平台
+ATARIST, RISCOS-LATIN1
+ 
+名称为空的编码方式等同于“char”：表示依赖本地的字符编码。
+ 
+当字符串“//TRANSLIT”追加到tocode时，打开字译功能。意思是当字符不能在目标字符集上显示时，选择一个或多个字形相近的字符代替。
+ 
+当字符串“// IGNORE”追加到tocode时，字符不能在目标字符集上显示时，将被忽略。
+ 
+iconv的结果转换描述符能使用任意多次，直到调用iconv_close函数释放掉。
+ 
+转换描述符包含转换状态。调用iconv_open创建后，转换状态处于初始状态。调用iconv将改变描述符的转换状态。（意味着转换描述符不能在多线程中同时使用。）把转换状态恢复至初始状态，只需把NULL作为inbuf参数来调用iconv。
+ 
+返回值
+iconv_open函数返回一个新申请的转换描述符。出错时，将修改errno并返回(iconv_t)(-1)。
+ 
+错误
+除了其它错误以外，出现以下错误：
+EINVAL
+    从fromcode到tocode的编码转换不被支持。
+
+遵循
+POSIX:2001
+
+查看相关
+iconv(3), iconvctl(3), iconv_close(3)

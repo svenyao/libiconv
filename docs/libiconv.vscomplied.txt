@@ -1,3 +1,4 @@
+libiconv ¹ÙÍø: http://www.gnu.org/software/libiconv/
 
 libiconv windowsÏÂvc±àÒë£º
 
