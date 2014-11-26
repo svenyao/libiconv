@@ -1,0 +1,18 @@
+
+libiconv windows下vc编译：
+
+1. 下载 iconv 库 http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.13.1.tar.gz
+2. VC6新建win32静态库工程，libIconv。复制iconv库lib文件夹所有文件到工程文件夹下
+3. 将config.h.in改名为config.h
+4. 将libcharset/lib/localcharset.c复制过来
+5. 将include文件夹下iconv.h.in复制过来，改名为iconv.h
+6. 将库中scrLib/localcharset.h复制过来
+7. 工程属性， C/C++, Preprocssor, Addtional include diretory增加当前文件夹"."
+8. 修改 iconv.h :
+    a. 删除所有的 @ 符号，
+    b. 注释掉/*DLL_VARIABLE*/，
+    c. ICONV_CONST改为const,
+9. 修改localcharset.c：
+    注释掉 #include "configmake.h"  
+10. 把有main函数的.c文件删掉
+
