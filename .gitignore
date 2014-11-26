@@ -1,0 +1,16 @@
+#
+#ignore complied by vs 
+[Dd]ebug/
+[Rr]elease/
+*.dsw
+*.ncb
+*.opt
+*.plg
+
+*.obj
+*.pch
+*.idb
+
+#ignore vim .swp file
+*.swp
+
