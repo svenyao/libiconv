@@ -29,13 +29,13 @@ int convert(const char *from, const char *to, char* save, int savelen, const cha
     size_t outsize = outbufsize;
     
     cd = iconv_open(to, from);
-    iconv(cd,NULL,NULL,NULL,NULL);
+    iconv(cd, NULL, NULL, NULL, NULL);
     if (inbufsize == 0) {
         status = -1;
         goto done;
     }
     while (insize > 0) {
-        size_t res = iconv(cd,(const char**)&inptr,&insize,&outptr,&outsize);
+        size_t res = iconv(cd, (const char**)&inptr, &insize, &outptr, &outsize);
         if (outptr != outbuf) {
             int saved_errno = errno;
             int outsize = outptr - outbuf;
@@ -45,7 +45,7 @@ int convert(const char *from, const char *to, char* save, int savelen, const cha
         if (res == (size_t)(-1)) {
             if (errno == EILSEQ) {
                 int one = 1;
-                iconvctl(cd,ICONV_SET_DISCARD_ILSEQ,&one);
+                iconvctl(cd, ICONV_SET_DISCARD_ILSEQ,&one);
                 status = -3;
             } else if (errno == EINVAL) {
                 if (inbufsize == 0) {
@@ -70,11 +70,11 @@ done:
 }
 
 /*
- *	convert(...) string封装
+ *  convert(...) string封装
  *  [in|out]put string : src_str
  *  s[from|to]: 编码名称
  */
-int convert_str(std::string sfrom, std::string sto, std::string &src_str)
+int convert_str(const std::string& sfrom, const std::string& sto, std::string& src_str)
 {
 	int ilen = src_str.length();
 	int ioutlen = ilen * 3;
@@ -103,7 +103,11 @@ int main(int argc, char **argv)
 	if (convert_str("GB2312", "UTF-8", _str) < 0)
 	{
 		std::cout << "convert to utf-8 failed. " << std::endl;
-		continue;
 	}
-	std::cout << _str << std::endl;
+	else
+	{
+		std::cout << _str << std::endl;
+	}
+	
+	return 0;
 }
