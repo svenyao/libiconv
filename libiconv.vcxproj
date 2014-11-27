@@ -1,0 +1,371 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <SccProjectName />
+    <SccLocalPath />
+    <ProjectGuid>{6B50B2A1-9757-4156-8AA0-C81FD8BCC8D3}</ProjectGuid>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v110_xp</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>.\libs\</OutDir>
+    <IntDir>.\Release\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>.\libs\</OutDir>
+    <IntDir>.\Debug\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <StringPooling>true</StringPooling>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <Optimization>MaxSpeed</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>.\Release\</AssemblerListingLocation>
+      <PrecompiledHeaderOutputFile>.\Release\libiconv.pch</PrecompiledHeaderOutputFile>
+      <ObjectFileName>.\Release\</ObjectFileName>
+      <ProgramDataBaseFileName>.\Release\</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <Culture>0x0804</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Release\libiconv.bsc</OutputFile>
+    </Bscmake>
+    <Lib>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>libs\libiconv.lib</OutputFile>
+    </Lib>
+    <Link>
+      <ModuleDefinitionFile>.\src\encodings.def</ModuleDefinitionFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <Optimization>Disabled</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+      <MinimalRebuild>true</MinimalRebuild>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>.\Debug\</AssemblerListingLocation>
+      <PrecompiledHeaderOutputFile>.\Debug\libiconv.pch</PrecompiledHeaderOutputFile>
+      <ObjectFileName>.\Debug\</ObjectFileName>
+      <ProgramDataBaseFileName>.\Debug\</ProgramDataBaseFileName>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+    </ClCompile>
+    <ResourceCompile>
+      <Culture>0x0804</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Debug\libiconv.bsc</OutputFile>
+    </Bscmake>
+    <Lib>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>libs\libiconv.lib</OutputFile>
+    </Lib>
+    <Link>
+      <ModuleDefinitionFile>.\src\encodings.def</ModuleDefinitionFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="src\encodings.def" />
+    <CustomBuild Include="src\encodings_aix.def">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <CustomBuild Include="src\encodings_dos.def">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <CustomBuild Include="src\encodings_extra.def">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <CustomBuild Include="src\encodings_local.def">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <CustomBuild Include="src\encodings_osf1.def">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <CustomBuild Include="src\translit.def">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\iconv.c" />
+    <ClCompile Include="src\localcharset.c" />
+    <ClCompile Include="src\relocatable.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\aliases.h" />
+    <ClInclude Include="src\aliases2.h" />
+    <ClInclude Include="src\aliases_aix.h" />
+    <ClInclude Include="src\aliases_aix_sysaix.h" />
+    <ClInclude Include="src\aliases_dos.h" />
+    <ClInclude Include="src\aliases_extra.h" />
+    <ClInclude Include="src\aliases_osf1.h" />
+    <ClInclude Include="src\aliases_osf1_sysosf1.h" />
+    <ClInclude Include="src\aliases_sysaix.h" />
+    <ClInclude Include="src\aliases_syshpux.h" />
+    <ClInclude Include="src\aliases_sysosf1.h" />
+    <ClInclude Include="src\aliases_syssolaris.h" />
+    <ClInclude Include="src\armscii_8.h" />
+    <ClInclude Include="src\ascii.h" />
+    <ClInclude Include="src\atarist.h" />
+    <ClInclude Include="src\big5.h" />
+    <ClInclude Include="src\big5_2003.h" />
+    <ClInclude Include="src\big5hkscs1999.h" />
+    <ClInclude Include="src\big5hkscs2001.h" />
+    <ClInclude Include="src\big5hkscs2004.h" />
+    <ClInclude Include="src\c99.h" />
+    <ClInclude Include="src\canonical.h" />
+    <ClInclude Include="src\canonical_aix.h" />
+    <ClInclude Include="src\canonical_aix_sysaix.h" />
+    <ClInclude Include="src\canonical_dos.h" />
+    <ClInclude Include="src\canonical_extra.h" />
+    <ClInclude Include="src\canonical_local.h" />
+    <ClInclude Include="src\canonical_local_sysaix.h" />
+    <ClInclude Include="src\canonical_local_syshpux.h" />
+    <ClInclude Include="src\canonical_local_sysosf1.h" />
+    <ClInclude Include="src\canonical_local_syssolaris.h" />
+    <ClInclude Include="src\canonical_osf1.h" />
+    <ClInclude Include="src\canonical_osf1_sysosf1.h" />
+    <ClInclude Include="src\canonical_sysaix.h" />
+    <ClInclude Include="src\canonical_syshpux.h" />
+    <ClInclude Include="src\canonical_sysosf1.h" />
+    <ClInclude Include="src\canonical_syssolaris.h" />
+    <ClInclude Include="src\ces_big5.h" />
+    <ClInclude Include="src\ces_gbk.h" />
+    <ClInclude Include="src\cjk_variants.h" />
+    <ClInclude Include="src\cns11643.h" />
+    <ClInclude Include="src\cns11643_1.h" />
+    <ClInclude Include="src\cns11643_15.h" />
+    <ClInclude Include="src\cns11643_2.h" />
+    <ClInclude Include="src\cns11643_3.h" />
+    <ClInclude Include="src\cns11643_4.h" />
+    <ClInclude Include="src\cns11643_4a.h" />
+    <ClInclude Include="src\cns11643_4b.h" />
+    <ClInclude Include="src\cns11643_5.h" />
+    <ClInclude Include="src\cns11643_6.h" />
+    <ClInclude Include="src\cns11643_7.h" />
+    <ClInclude Include="src\cns11643_inv.h" />
+    <ClInclude Include="src\config.h" />
+    <ClInclude Include="src\converters.h" />
+    <ClInclude Include="src\cp1046.h" />
+    <ClInclude Include="src\cp1124.h" />
+    <ClInclude Include="src\cp1125.h" />
+    <ClInclude Include="src\cp1129.h" />
+    <ClInclude Include="src\cp1131.h" />
+    <ClInclude Include="src\cp1133.h" />
+    <ClInclude Include="src\cp1161.h" />
+    <ClInclude Include="src\cp1162.h" />
+    <ClInclude Include="src\cp1163.h" />
+    <ClInclude Include="src\cp1250.h" />
+    <ClInclude Include="src\cp1251.h" />
+    <ClInclude Include="src\cp1252.h" />
+    <ClInclude Include="src\cp1253.h" />
+    <ClInclude Include="src\cp1254.h" />
+    <ClInclude Include="src\cp1255.h" />
+    <ClInclude Include="src\cp1256.h" />
+    <ClInclude Include="src\cp1257.h" />
+    <ClInclude Include="src\cp1258.h" />
+    <ClInclude Include="src\cp437.h" />
+    <ClInclude Include="src\cp737.h" />
+    <ClInclude Include="src\cp775.h" />
+    <ClInclude Include="src\cp850.h" />
+    <ClInclude Include="src\cp852.h" />
+    <ClInclude Include="src\cp853.h" />
+    <ClInclude Include="src\cp855.h" />
+    <ClInclude Include="src\cp856.h" />
+    <ClInclude Include="src\cp857.h" />
+    <ClInclude Include="src\cp858.h" />
+    <ClInclude Include="src\cp860.h" />
+    <ClInclude Include="src\cp861.h" />
+    <ClInclude Include="src\cp862.h" />
+    <ClInclude Include="src\cp863.h" />
+    <ClInclude Include="src\cp864.h" />
+    <ClInclude Include="src\cp865.h" />
+    <ClInclude Include="src\cp866.h" />
+    <ClInclude Include="src\cp869.h" />
+    <ClInclude Include="src\cp874.h" />
+    <ClInclude Include="src\cp922.h" />
+    <ClInclude Include="src\cp932.h" />
+    <ClInclude Include="src\cp932ext.h" />
+    <ClInclude Include="src\cp936.h" />
+    <ClInclude Include="src\cp936ext.h" />
+    <ClInclude Include="src\cp943.h" />
+    <ClInclude Include="src\cp949.h" />
+    <ClInclude Include="src\cp950.h" />
+    <ClInclude Include="src\cp950ext.h" />
+    <ClInclude Include="src\dec_hanyu.h" />
+    <ClInclude Include="src\dec_kanji.h" />
+    <ClInclude Include="src\euc_cn.h" />
+    <ClInclude Include="src\euc_jisx0213.h" />
+    <ClInclude Include="src\euc_jp.h" />
+    <ClInclude Include="src\euc_kr.h" />
+    <ClInclude Include="src\euc_tw.h" />
+    <ClInclude Include="src\flags.h" />
+    <ClInclude Include="src\flushwc.h" />
+    <ClInclude Include="src\gb12345.h" />
+    <ClInclude Include="src\gb12345ext.h" />
+    <ClInclude Include="src\gb18030.h" />
+    <ClInclude Include="src\gb18030ext.h" />
+    <ClInclude Include="src\gb18030uni.h" />
+    <ClInclude Include="src\gb2312.h" />
+    <ClInclude Include="src\gbk.h" />
+    <ClInclude Include="src\gbkext1.h" />
+    <ClInclude Include="src\gbkext2.h" />
+    <ClInclude Include="src\gbkext_inv.h" />
+    <ClInclude Include="src\georgian_academy.h" />
+    <ClInclude Include="src\georgian_ps.h" />
+    <ClInclude Include="src\hkscs1999.h" />
+    <ClInclude Include="src\hkscs2001.h" />
+    <ClInclude Include="src\hkscs2004.h" />
+    <ClInclude Include="src\hp_roman8.h" />
+    <ClInclude Include="src\hz.h" />
+    <ClInclude Include="include\iconv.h" />
+    <ClInclude Include="src\iconv_open1.h" />
+    <ClInclude Include="src\iconv_open2.h" />
+    <ClInclude Include="src\iso2022_cn.h" />
+    <ClInclude Include="src\iso2022_cnext.h" />
+    <ClInclude Include="src\iso2022_jp.h" />
+    <ClInclude Include="src\iso2022_jp1.h" />
+    <ClInclude Include="src\iso2022_jp2.h" />
+    <ClInclude Include="src\iso2022_jp3.h" />
+    <ClInclude Include="src\iso2022_kr.h" />
+    <ClInclude Include="src\iso646_cn.h" />
+    <ClInclude Include="src\iso646_jp.h" />
+    <ClInclude Include="src\iso8859_1.h" />
+    <ClInclude Include="src\iso8859_10.h" />
+    <ClInclude Include="src\iso8859_11.h" />
+    <ClInclude Include="src\iso8859_13.h" />
+    <ClInclude Include="src\iso8859_14.h" />
+    <ClInclude Include="src\iso8859_15.h" />
+    <ClInclude Include="src\iso8859_16.h" />
+    <ClInclude Include="src\iso8859_2.h" />
+    <ClInclude Include="src\iso8859_3.h" />
+    <ClInclude Include="src\iso8859_4.h" />
+    <ClInclude Include="src\iso8859_5.h" />
+    <ClInclude Include="src\iso8859_6.h" />
+    <ClInclude Include="src\iso8859_7.h" />
+    <ClInclude Include="src\iso8859_8.h" />
+    <ClInclude Include="src\iso8859_9.h" />
+    <ClInclude Include="src\isoir165.h" />
+    <ClInclude Include="src\isoir165ext.h" />
+    <ClInclude Include="src\java.h" />
+    <ClInclude Include="src\jisx0201.h" />
+    <ClInclude Include="src\jisx0208.h" />
+    <ClInclude Include="src\jisx0212.h" />
+    <ClInclude Include="src\jisx0213.h" />
+    <ClInclude Include="src\johab.h" />
+    <ClInclude Include="src\johab_hangul.h" />
+    <ClInclude Include="src\koi8_r.h" />
+    <ClInclude Include="src\koi8_ru.h" />
+    <ClInclude Include="src\koi8_t.h" />
+    <ClInclude Include="src\koi8_u.h" />
+    <ClInclude Include="src\ksc5601.h" />
+    <ClInclude Include="src\localcharset.h" />
+    <ClInclude Include="src\loop_unicode.h" />
+    <ClInclude Include="src\loop_wchar.h" />
+    <ClInclude Include="src\loops.h" />
+    <ClInclude Include="src\mac_arabic.h" />
+    <ClInclude Include="src\mac_centraleurope.h" />
+    <ClInclude Include="src\mac_croatian.h" />
+    <ClInclude Include="src\mac_cyrillic.h" />
+    <ClInclude Include="src\mac_greek.h" />
+    <ClInclude Include="src\mac_hebrew.h" />
+    <ClInclude Include="src\mac_iceland.h" />
+    <ClInclude Include="src\mac_roman.h" />
+    <ClInclude Include="src\mac_romania.h" />
+    <ClInclude Include="src\mac_thai.h" />
+    <ClInclude Include="src\mac_turkish.h" />
+    <ClInclude Include="src\mac_ukraine.h" />
+    <ClInclude Include="src\mulelao.h" />
+    <ClInclude Include="src\nextstep.h" />
+    <ClInclude Include="src\pt154.h" />
+    <ClInclude Include="src\relocatable.h" />
+    <ClInclude Include="src\riscos1.h" />
+    <ClInclude Include="src\rk1048.h" />
+    <ClInclude Include="src\shift_jisx0213.h" />
+    <ClInclude Include="src\sjis.h" />
+    <ClInclude Include="src\tcvn.h" />
+    <ClInclude Include="src\tds565.h" />
+    <ClInclude Include="src\tis620.h" />
+    <ClInclude Include="src\translit.h" />
+    <ClInclude Include="src\ucs2.h" />
+    <ClInclude Include="src\ucs2be.h" />
+    <ClInclude Include="src\ucs2internal.h" />
+    <ClInclude Include="src\ucs2le.h" />
+    <ClInclude Include="src\ucs2swapped.h" />
+    <ClInclude Include="src\ucs4.h" />
+    <ClInclude Include="src\ucs4be.h" />
+    <ClInclude Include="src\ucs4internal.h" />
+    <ClInclude Include="src\ucs4le.h" />
+    <ClInclude Include="src\ucs4swapped.h" />
+    <ClInclude Include="src\uhc_1.h" />
+    <ClInclude Include="src\uhc_2.h" />
+    <ClInclude Include="src\utf16.h" />
+    <ClInclude Include="src\utf16be.h" />
+    <ClInclude Include="src\utf16le.h" />
+    <ClInclude Include="src\utf32.h" />
+    <ClInclude Include="src\utf32be.h" />
+    <ClInclude Include="src\utf32le.h" />
+    <ClInclude Include="src\utf7.h" />
+    <ClInclude Include="src\utf8.h" />
+    <ClInclude Include="src\vietcomb.h" />
+    <ClInclude Include="src\viscii.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -11,6 +11,10 @@
 *.pch
 *.idb
 
+*.filters
+*.sdf
+*.user
+*.suo
 #ignore vim .swp file
 *.swp
 
