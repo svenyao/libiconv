@@ -5,12 +5,18 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libiconv", "libiconv.vcxpro
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug - SD|Win32 = Debug - SD|Win32
 		Debug|Win32 = Debug|Win32
+		Release - SD|Win32 = Release - SD|Win32
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6B50B2A1-9757-4156-8AA0-C81FD8BCC8D3}.Debug - SD|Win32.ActiveCfg = Debug - SD|Win32
+		{6B50B2A1-9757-4156-8AA0-C81FD8BCC8D3}.Debug - SD|Win32.Build.0 = Debug - SD|Win32
 		{6B50B2A1-9757-4156-8AA0-C81FD8BCC8D3}.Debug|Win32.ActiveCfg = Debug|Win32
 		{6B50B2A1-9757-4156-8AA0-C81FD8BCC8D3}.Debug|Win32.Build.0 = Debug|Win32
+		{6B50B2A1-9757-4156-8AA0-C81FD8BCC8D3}.Release - SD|Win32.ActiveCfg = Release - SD|Win32
+		{6B50B2A1-9757-4156-8AA0-C81FD8BCC8D3}.Release - SD|Win32.Build.0 = Release - SD|Win32
 		{6B50B2A1-9757-4156-8AA0-C81FD8BCC8D3}.Release|Win32.ActiveCfg = Release|Win32
 		{6B50B2A1-9757-4156-8AA0-C81FD8BCC8D3}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
